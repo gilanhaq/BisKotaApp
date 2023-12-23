@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "44844995898",
+    "project_id": "biskota-12c7d",
+    "storage_bucket": "biskota-12c7d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44844995898:android:f139b41af1a6da36c52c03",
+        "android_client_info": {
+          "package_name": "com.khrismahaq.biskota"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADbagAiRBRhnVysyFhICWwRdrTnlT_av4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
