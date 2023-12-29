@@ -5,6 +5,7 @@ import 'package:biskota/cubit/page_cubit.dart';
 import 'package:biskota/screens/pages/bonus_page.dart';
 import 'package:biskota/screens/pages/get_started_page.dart';
 import 'package:biskota/screens/pages/main_page.dart';
+import 'package:biskota/screens/pages/sign_in_pages.dart';
 import 'package:biskota/screens/pages/sign_up_pages.dart';
 import 'package:biskota/screens/pages/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
           '/sign-up': (context) => SignUpPage(),
           '/bonus': (context) => const BonusPage(),
           '/main': (context) => const MainPage(),
+          '/sign-in': (context) => SignInPage(),
         },
       ),
     );

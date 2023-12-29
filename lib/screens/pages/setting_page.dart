@@ -1,4 +1,5 @@
 import 'package:biskota/cubit/auth_cubit.dart';
+import 'package:biskota/cubit/page_cubit.dart';
 import 'package:biskota/screens/widgets/custom_button.dart';
 import 'package:biskota/shared/theme.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +20,9 @@ class SettingPage extends StatelessWidget {
             ),
           );
         } else if (state is AuthInitial) {
+          context.read<PageCubit>().setPage(0);
           Navigator.pushNamedAndRemoveUntil(
-              context, '/sign-up', (route) => false);
+              context, '/sign-in', (route) => false);
         }
       },
       builder: (context, state) {
