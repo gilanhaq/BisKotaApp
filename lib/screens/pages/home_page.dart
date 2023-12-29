@@ -1,57 +1,68 @@
+import 'package:biskota/cubit/auth_cubit.dart';
 import 'package:biskota/screens/widgets/card_destination.dart';
 import 'package:biskota/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:biskota/screens/widgets/tile_destination.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
   Widget header() {
-    return Container(
-      margin: EdgeInsets.only(
-        left: defaultMargin,
-        right: defaultMargin,
-        top: 30,
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, state) {
+        if (state is AuthSuccess) {
+          return Container(
+            margin: EdgeInsets.only(
+              left: defaultMargin,
+              right: defaultMargin,
+              top: 30,
+            ),
+            child: Row(
               children: [
-                Text(
-                  'Hello,\nGilang K.',
-                  style: blackText.copyWith(
-                    fontSize: 24,
-                    fontWeight: semibold,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Hello,\n${state.user.name}',
+                        style: blackText.copyWith(
+                          fontSize: 24,
+                          fontWeight: semibold,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      Text(
+                        'Where to go today?',
+                        style: greyText.copyWith(
+                          fontSize: 16,
+                          fontWeight: light,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(
-                  height: 6,
-                ),
-                Text(
-                  'Where to go today?',
-                  style: greyText.copyWith(
-                    fontSize: 16,
-                    fontWeight: light,
+                Container(
+                  width: 60,
+                  height: 60,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: AssetImage(
+                        'assets/imgs/img_profile.png',
+                      ),
+                    ),
                   ),
-                ),
+                )
               ],
             ),
-          ),
-          Container(
-            width: 60,
-            height: 60,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage(
-                  'assets/imgs/img_profile.png',
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
+          );
+        } else {
+          return SizedBox();
+        }
+      },
     );
   }
 
