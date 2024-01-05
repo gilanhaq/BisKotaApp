@@ -1,3 +1,4 @@
+import 'package:biskota/models/model_destination.dart';
 import 'package:biskota/screens/pages/choose_seat_page.dart';
 import 'package:biskota/screens/widgets/custom_button.dart';
 import 'package:biskota/screens/widgets/item_interest.dart';
@@ -5,9 +6,12 @@ import 'package:biskota/screens/widgets/item_photo.dart';
 import 'package:biskota/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
 class DetailPage extends StatelessWidget {
-  const DetailPage({super.key});
+  final DestinationModel destination;
+
+  const DetailPage(this.destination, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +19,11 @@ class DetailPage extends StatelessWidget {
       return Container(
         width: double.infinity,
         height: 450,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage(
-              'assets/imgs/img_destination1.png',
+            image: NetworkImage(
+              destination.imageUrl,
             ),
           ),
         ),
@@ -70,7 +74,7 @@ class DetailPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Jatim Park 1',
+                          destination.name,
                           style: whiteText.copyWith(
                             fontSize: 24,
                             fontWeight: semibold,
@@ -81,7 +85,7 @@ class DetailPage extends StatelessWidget {
                           height: 4,
                         ),
                         Text(
-                          'Batu, Malang',
+                          destination.city,
                           style: whiteText.copyWith(
                             fontSize: 16,
                             fontWeight: light,
@@ -100,7 +104,7 @@ class DetailPage extends StatelessWidget {
                         child: SvgPicture.asset('assets/svgs/ic_star.svg'),
                       ),
                       Text(
-                        '4.5',
+                        destination.rating.toString(),
                         style: whiteText.copyWith(
                           fontWeight: medium,
                           fontSize: 16,
@@ -139,7 +143,7 @@ class DetailPage extends StatelessWidget {
                     height: 6,
                   ),
                   Text(
-                    'Jawa Timur Park Satu adalah Taman Hiburan dengan Tema Pameran adat budaya Indonesia yang dilengkapi dengan pembelajaran Science Center.',
+                    'Malang adalah sebuah kota yang terletak di provinsi Jawa Timur, Indonesia, Kota terbesar kedua di Jawa Timur setelah Surabaya, dan kota terbesar ke-12 di Indonesia.',
                     style: blackText.copyWith(
                       fontSize: 14,
                       fontWeight: regular,
@@ -214,7 +218,9 @@ class DetailPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Rp 300.000',
+                          NumberFormat.currency(
+                                  locale: 'id', symbol: 'Rp ', decimalDigits: 0)
+                              .format(destination.price),
                           style: blackText.copyWith(
                             fontSize: 18,
                             fontWeight: medium,
@@ -240,7 +246,7 @@ class DetailPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ChooseSeatPage(),
+                          builder: (context) => ChooseSeatPage(destination),
                         ),
                       );
                     },

@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:biskota/cubit/auth_cubit.dart';
+import 'package:biskota/cubit/destination_cubit.dart';
 import 'package:biskota/cubit/page_cubit.dart';
+import 'package:biskota/cubit/seat_cubit.dart';
 import 'package:biskota/screens/pages/bonus_page.dart';
 import 'package:biskota/screens/pages/get_started_page.dart';
 import 'package:biskota/screens/pages/main_page.dart';
@@ -41,6 +43,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => AuthCubit(),
+        ),
+        BlocProvider(
+          create: (context) => DestinationCubit(),
+        ),
+        BlocProvider(
+          create: (context) => SeatCubit(),
         ),
       ],
       child: MaterialApp(

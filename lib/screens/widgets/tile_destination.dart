@@ -1,20 +1,15 @@
+import 'package:biskota/models/model_destination.dart';
 import 'package:biskota/screens/pages/detail_page.dart';
 import 'package:biskota/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class DestinationTile extends StatelessWidget {
-  final String newDestination;
-  final String newLocation;
-  final String newImageUrl;
-  final double newRating;
+  final DestinationModel destination;
 
-  const DestinationTile({
+  const DestinationTile(
+    this.destination, {
     super.key,
-    required this.newDestination,
-    required this.newLocation,
-    required this.newImageUrl,
-    this.newRating = 0.0,
   });
 
   @override
@@ -24,7 +19,7 @@ class DestinationTile extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const DetailPage(),
+            builder: (context) => DetailPage(destination),
           ),
         );
       },
@@ -45,8 +40,8 @@ class DestinationTile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(18),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage(
-                    newImageUrl,
+                  image: NetworkImage(
+                    destination.imageUrl,
                   ),
                 ),
               ),
@@ -56,7 +51,7 @@ class DestinationTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    newDestination,
+                    destination.name,
                     style: blackText.copyWith(
                       fontSize: 18,
                       fontWeight: medium,
@@ -66,7 +61,7 @@ class DestinationTile extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    newLocation,
+                    destination.city,
                     style: greyText.copyWith(
                       fontWeight: light,
                     ),
@@ -81,7 +76,7 @@ class DestinationTile extends StatelessWidget {
               child: SvgPicture.asset('assets/svgs/ic_star.svg'),
             ),
             Text(
-              newRating.toString(),
+              destination.rating.toString(),
               style: blackText.copyWith(
                 fontWeight: medium,
               ),

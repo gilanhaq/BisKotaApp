@@ -1,21 +1,16 @@
+import 'package:biskota/models/model_destination.dart';
 import 'package:biskota/screens/pages/detail_page.dart';
 import 'package:biskota/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class DestinationCard extends StatelessWidget {
-  final String destination;
-  final String location;
-  final String imageUrl;
-  final double rating;
+  final DestinationModel destination;
 
-  const DestinationCard({
-    super.key,
-    required this.destination,
-    required this.location,
-    required this.imageUrl,
-    this.rating = 0.0,
-  });
+  const DestinationCard(
+    this.destination, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +19,7 @@ class DestinationCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const DetailPage(),
+            builder: (context) => DetailPage(destination),
           ),
         );
       },
@@ -46,10 +41,10 @@ class DestinationCard extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(18),
                 image: DecorationImage(
-                  image: AssetImage(
-                    imageUrl,
-                  ),
-                ),
+                    image: NetworkImage(
+                      destination.imageUrl,
+                    ),
+                    fit: BoxFit.cover),
               ),
               child: Align(
                 alignment: Alignment.topRight,
@@ -72,7 +67,7 @@ class DestinationCard extends StatelessWidget {
                         child: SvgPicture.asset('assets/svgs/ic_star.svg'),
                       ),
                       Text(
-                        rating.toString(),
+                        destination.rating.toString(),
                         style: blackText.copyWith(
                           fontWeight: medium,
                         ),
@@ -88,7 +83,7 @@ class DestinationCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    destination,
+                    destination.name,
                     style: blackText.copyWith(
                       fontSize: 18,
                       fontWeight: medium,
@@ -98,7 +93,7 @@ class DestinationCard extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    location,
+                    destination.city,
                     style: greyText.copyWith(
                       fontSize: 14,
                       fontWeight: light,

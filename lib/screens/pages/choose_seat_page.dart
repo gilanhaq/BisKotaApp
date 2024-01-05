@@ -1,13 +1,19 @@
+import 'package:biskota/cubit/seat_cubit.dart';
+import 'package:biskota/models/model_destination.dart';
 import 'package:biskota/screens/pages/checkout_page.dart';
 import 'package:biskota/screens/widgets/item_seat_guide.dart';
 import 'package:biskota/shared/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:biskota/screens/widgets/custom_button.dart';
 import 'package:biskota/screens/widgets/item_seat.dart';
+import 'package:intl/intl.dart';
 
 class ChooseSeatPage extends StatelessWidget {
-  const ChooseSeatPage({super.key});
+  final DestinationModel destination;
+
+  ChooseSeatPage(this.destination, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,153 +76,209 @@ class ChooseSeatPage extends StatelessWidget {
     }
 
     Widget selectSeat() {
-      return Container(
-        margin: const EdgeInsets.only(top: 30),
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 22,
-          vertical: 30,
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          color: Colors.white,
-        ),
-        child: Column(
-          children: [
-            //NOTE: SEAT INDICATORS
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+      return BlocBuilder<SeatCubit, List<String>>(
+        builder: (context, state) {
+          return Container(
+            margin: const EdgeInsets.only(top: 30),
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 22,
+              vertical: 30,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18),
+              color: Colors.white,
+            ),
+            child: Column(
               children: [
-                SeatGuideItem(guide: 'A'),
-                SeatGuideItem(guide: 'B'),
-                SeatGuideItem(guide: ''),
-                SeatGuideItem(guide: 'C'),
-                SeatGuideItem(guide: 'D'),
+                //NOTE: SEAT INDICATORS
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SeatGuideItem(guide: 'A'),
+                    SeatGuideItem(guide: 'B'),
+                    SeatGuideItem(guide: ''),
+                    SeatGuideItem(guide: 'C'),
+                    SeatGuideItem(guide: 'D'),
+                  ],
+                ),
+
+                //NOTE: SEAT 1
+                Container(
+                  margin: const EdgeInsets.only(top: 16),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SeatItem(
+                        id: 'A1',
+                        isAvailable: false,
+                      ),
+                      SeatItem(
+                        id: 'B1',
+                        isAvailable: false,
+                      ),
+                      SeatGuideItem(guide: '1'),
+                      SeatItem(
+                        id: 'C1',
+                      ),
+                      SeatItem(
+                        id: 'D1',
+                      ),
+                    ],
+                  ),
+                ),
+
+                //NOTE: SEAT 2
+                Container(
+                  margin: const EdgeInsets.only(top: 16),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SeatItem(
+                        id: 'A2',
+                        isAvailable: false,
+                      ),
+                      SeatItem(
+                        id: 'B2',
+                      ),
+                      SeatGuideItem(guide: '2'),
+                      SeatItem(
+                        id: 'C2',
+                        isAvailable: false,
+                      ),
+                      SeatItem(
+                        id: 'D2',
+                        isAvailable: false,
+                      ),
+                    ],
+                  ),
+                ),
+
+                //NOTE: SEAT 3
+                Container(
+                  margin: const EdgeInsets.only(top: 16),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SeatItem(
+                        id: 'A3',
+                      ),
+                      SeatItem(
+                        id: 'B3',
+                        isAvailable: false,
+                      ),
+                      SeatGuideItem(guide: '3'),
+                      SeatItem(
+                        id: 'C3',
+                      ),
+                      SeatItem(
+                        id: 'D3',
+                      ),
+                    ],
+                  ),
+                ),
+
+                //NOTE: SEAT 4
+                Container(
+                  margin: const EdgeInsets.only(top: 16),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SeatItem(
+                        id: 'A4',
+                      ),
+                      SeatItem(
+                        id: 'B4',
+                      ),
+                      SeatGuideItem(guide: '4'),
+                      SeatItem(
+                        id: 'C4',
+                        isAvailable: false,
+                      ),
+                      SeatItem(
+                        id: 'D4',
+                      ),
+                    ],
+                  ),
+                ),
+
+                //NOTE: SEAT 5
+                Container(
+                  margin: const EdgeInsets.only(top: 16),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SeatItem(
+                        id: 'A5',
+                      ),
+                      SeatItem(
+                        id: 'B5',
+                      ),
+                      SeatGuideItem(guide: '5'),
+                      SeatItem(
+                        id: 'C5',
+                      ),
+                      SeatItem(
+                        id: 'D5',
+                        isAvailable: false,
+                      ),
+                    ],
+                  ),
+                ),
+
+                //NOTE: YOUR SEAT
+                Container(
+                  margin: const EdgeInsets.only(top: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Your Seat',
+                        style: greyText.copyWith(
+                          fontWeight: light,
+                        ),
+                      ),
+                      Text(
+                        state.join(', '),
+                        style: blackText.copyWith(
+                          fontWeight: medium,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                //NOTE: PRICE
+                Container(
+                  margin: const EdgeInsets.only(top: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total',
+                        style: greyText.copyWith(
+                          fontWeight: light,
+                        ),
+                      ),
+                      Text(
+                        NumberFormat.currency(
+                          locale: 'id',
+                          symbol: 'Rp ',
+                          decimalDigits: 0,
+                        ).format(state.length * destination.price),
+                        style: primaryText.copyWith(
+                          fontWeight: semibold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
-
-            //NOTE: SEAT 1
-            Container(
-              margin: const EdgeInsets.only(top: 16),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SeatItem(status: 2),
-                  SeatItem(status: 2),
-                  SeatGuideItem(guide: '1'),
-                  SeatItem(status: 0),
-                  SeatItem(status: 2),
-                ],
-              ),
-            ),
-
-            //NOTE: SEAT 2
-            Container(
-              margin: const EdgeInsets.only(top: 16),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SeatItem(status: 0),
-                  SeatItem(status: 0),
-                  SeatGuideItem(guide: '2'),
-                  SeatItem(status: 0),
-                  SeatItem(status: 2),
-                ],
-              ),
-            ),
-
-            //NOTE: SEAT 3
-            Container(
-              margin: const EdgeInsets.only(top: 16),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SeatItem(status: 1),
-                  SeatItem(status: 1),
-                  SeatGuideItem(guide: '3'),
-                  SeatItem(status: 0),
-                  SeatItem(status: 0),
-                ],
-              ),
-            ),
-
-            //NOTE: SEAT 4
-            Container(
-              margin: const EdgeInsets.only(top: 16),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SeatItem(status: 0),
-                  SeatItem(status: 2),
-                  SeatGuideItem(guide: '4'),
-                  SeatItem(status: 0),
-                  SeatItem(status: 0),
-                ],
-              ),
-            ),
-
-            //NOTE: SEAT 5
-            Container(
-              margin: const EdgeInsets.only(top: 16),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  SeatItem(status: 0),
-                  SeatItem(status: 0),
-                  SeatGuideItem(guide: '5'),
-                  SeatItem(status: 2),
-                  SeatItem(status: 0),
-                ],
-              ),
-            ),
-
-            //NOTE: YOUR SEAT
-            Container(
-              margin: const EdgeInsets.only(top: 30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Your Seat',
-                    style: greyText.copyWith(
-                      fontWeight: light,
-                    ),
-                  ),
-                  Text(
-                    'A3, B3',
-                    style: blackText.copyWith(
-                      fontWeight: medium,
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            //NOTE: PRICE
-            Container(
-              margin: const EdgeInsets.only(top: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Total',
-                    style: greyText.copyWith(
-                      fontWeight: light,
-                    ),
-                  ),
-                  Text(
-                    'Rp 600.000',
-                    style: primaryText.copyWith(
-                      fontWeight: semibold,
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       );
     }
 
