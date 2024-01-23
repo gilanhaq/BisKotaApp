@@ -1,6 +1,8 @@
+import 'package:biskota/cubit/page_cubit.dart';
 import 'package:biskota/screens/widgets/custom_button.dart';
 import 'package:biskota/shared/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SuccessPage extends StatelessWidget {
   const SuccessPage({super.key});
@@ -48,6 +50,7 @@ class SuccessPage extends StatelessWidget {
               width: 220,
               title: 'Back to Home',
               onPressed: () {
+                context.read<PageCubit>().setPage(1);
                 Navigator.pushNamedAndRemoveUntil(
                   context,
                   '/main',

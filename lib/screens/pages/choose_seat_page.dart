@@ -1,5 +1,6 @@
 import 'package:biskota/cubit/seat_cubit.dart';
 import 'package:biskota/models/model_destination.dart';
+import 'package:biskota/models/model_transaction.dart';
 import 'package:biskota/screens/pages/checkout_page.dart';
 import 'package:biskota/screens/widgets/item_seat_guide.dart';
 import 'package:biskota/shared/theme.dart';
@@ -283,18 +284,35 @@ class ChooseSeatPage extends StatelessWidget {
     }
 
     Widget checkoutButton() {
-      return CustomButton(
-        margin: const EdgeInsets.only(
-          top: 30,
-          bottom: 46,
-        ),
-        title: 'Continue to Checkout',
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const CheckoutPage(),
+      return BlocBuilder<SeatCubit, List<String>>(
+        builder: (context, state) {
+          return CustomButton(
+            margin: const EdgeInsets.only(
+              top: 30,
+              bottom: 46,
             ),
+            title: 'Continue to Checkout',
+            onPressed: () {
+              int price = destination.price * state.length;
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CheckoutPage(
+                    TransactionModel(
+                      destination: destination,
+                      amountOfTraveler: state.length,
+                      selectedSeats: state.join(', '),
+                      insurance: true,
+                      refundable: false,
+                      vat: 0.45,
+                      price: price,
+                      grandTotal: price + (price * 0.45).toInt(),
+                    ),
+                  ),
+                ),
+              );
+            },
           );
         },
       );

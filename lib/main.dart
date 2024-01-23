@@ -4,12 +4,14 @@ import 'package:biskota/cubit/auth_cubit.dart';
 import 'package:biskota/cubit/destination_cubit.dart';
 import 'package:biskota/cubit/page_cubit.dart';
 import 'package:biskota/cubit/seat_cubit.dart';
+import 'package:biskota/cubit/transaction_cubit.dart';
 import 'package:biskota/screens/pages/bonus_page.dart';
 import 'package:biskota/screens/pages/get_started_page.dart';
 import 'package:biskota/screens/pages/main_page.dart';
 import 'package:biskota/screens/pages/sign_in_pages.dart';
 import 'package:biskota/screens/pages/sign_up_pages.dart';
 import 'package:biskota/screens/pages/splash_page.dart';
+import 'package:biskota/screens/pages/success_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,6 +52,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => SeatCubit(),
         ),
+        BlocProvider(
+          create: (context) => TransactionCubit(),
+        ),
       ],
       child: MaterialApp(
         title: 'BISKOTA',
@@ -62,6 +67,7 @@ class MyApp extends StatelessWidget {
           '/bonus': (context) => const BonusPage(),
           '/main': (context) => const MainPage(),
           '/sign-in': (context) => SignInPage(),
+          '/success': (context) => SuccessPage(),
         },
       ),
     );
